@@ -33,7 +33,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <div className="h-screen flex flex-col">
+          <nav className="bg-slate-600 text-white p-4 space-x-2">
+            { /* liens de navigation */ }
+          </nav>
+          <main className="flex-1 flex flex-row overflow-y-scroll">
+            {children}
+          </main>
+          <footer className="bg-slate-500 text-white p-4 text-center">
+            IUTRS - W51 - 2025
+          </footer>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>

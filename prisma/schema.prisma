@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+//////////////////////////////////////
+
+model Character {
+  id Int @id @default(autoincrement())
+  name String @unique
+  nickname String
+  profession String
+  description String
+  apparations Artwork[]
+  suggestions Suggestion[]
+}
+
+enum ArtworkType {
+  BOOK
+  SERIES
+  GAME
+}
+
+model Artwork {
+  id Int @id @default(autoincrement())
+  title String
+  season String?
+  type ArtworkType
+  publicationYear Int
+  characters Character[]
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique
+  Nickname String @unique
+  role String
+  suggestions Suggestion[] 
+}
+
+enum State {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model Suggestion {
+  id Int @id @default(autoincrement())
+  text String
+  state State @default(PENDING)
+  character Character @relation(fields: [characterId], references: [id])
+  characterId Int
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
