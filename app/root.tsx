@@ -11,6 +11,11 @@ import {
 // UI
 import { Button } from "./components/ui/button";
 import { MessageCircleQuestionMark } from "lucide-react";
+import { PersonStanding } from "lucide-react";
+
+//IMG
+import logo from './assets/witcher-logo.png'
+
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -39,15 +44,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <div className="h-screen flex flex-col">
-          <nav className="bg-slate-600 text-white p-4 space-x-2">
+          <nav className=" bg-slate-600 text-white p-4 space-x-2">
             { /* liens de navigation */ }
+          <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to=""><img src={logo} className="w-10" alt="" /></NavLink></Button>
           <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/about"><MessageCircleQuestionMark className="mr-1 h-4 w-4" /> About this project</NavLink></Button>
+          <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/characters"><PersonStanding className="mr-1 h-4 w-4" /> Characters</NavLink></Button>
           </nav>
           <main className="flex-1 flex flex-row overflow-y-scroll">
             {children}
           </main>
           <footer className="bg-slate-500 text-white p-4 text-center">
-            IUTRS - W51 - 2025
+            Made with love by a fan - 2026
           </footer>
         </div>
         <ScrollRestoration />
