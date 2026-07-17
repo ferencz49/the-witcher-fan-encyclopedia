@@ -45,6 +45,12 @@ export default function character({ loaderData }: Route.ComponentProps){
                     <Separator/>
                     <h2 className="text-2xl pt-4 pb-4">Profession : { character.profession }</h2>
                     <Separator/>
+                    <h2 className="text-2xl pt-4 pb-4">Race : { character.race }</h2>
+                    <Separator/>                    
+                    <h2 className="text-2xl pt-4 pb-4">Gender : { character.gender }</h2>
+                    <Separator/>     
+                    <h2 className="text-2xl pt-4 pb-4">Description : { character.description }</h2>
+                    <Separator/>                                   
                 </div> 
         </div>
     )
