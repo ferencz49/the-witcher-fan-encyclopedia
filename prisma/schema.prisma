@@ -58,11 +58,17 @@ model Artwork {
   characters Character[]
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 model User {
   id Int @id @default(autoincrement())
   email String @unique
-  Nickname String @unique
-  role String
+  username String @unique
+  password String
+  role Role @default(USER)
   suggestions Suggestion[] 
 }
 
