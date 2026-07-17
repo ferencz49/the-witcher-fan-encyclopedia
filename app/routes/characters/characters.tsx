@@ -2,7 +2,7 @@
 * Imports
 ************************************/
 import type { Route } from "./+types/characters"
-import { get_characters } from "~/models/character.server"
+import { get_characters_asc } from "~/models/character.server"
 
 import { Button } from "~/components/ui/button"
 import { NavLinkWithQuery } from "~/components/linkWithQuery"
@@ -13,7 +13,7 @@ import { Separator } from "~/components/ui/separator"
 ************************************/
 
 export async function loader(){
-    return { characters: await get_characters()}
+    return { characters: await get_characters_asc()}
 }
 
 /**
