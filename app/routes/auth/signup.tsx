@@ -2,7 +2,7 @@ import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
 import type { Route } from "./+types/signup"
 import { create_account } from "~/models/user.server"
-import { useNavigate } from "react-router"
+import { redirect, useNavigate } from "react-router"
 
 
 /**
@@ -16,7 +16,8 @@ export async function action({ request }: Route.ActionArgs){
 
     if(intent === "create_account"){
         try{
-            return await create_account(data)
+            await create_account(data)
+            return redirect("/signin")
         } catch(error){
             if (error instanceof Error) { // si on a bien capturé une erreur
                 return { error: error.message }; // on retourne (et pas throw) une réponse avec le message d'erreur
@@ -51,7 +52,7 @@ export default function signup({ actionData }: Route.ComponentProps){
     return(
         <>
             <div className="flex flex-col flex-1 items-center justify-center bg-sky-200">
-                <form className="p-5 bg-stone-100 rounded-lg">
+                <form className="p-5 bg-stone-100 rounded-lg" method="post">
                     <label>Your email</label>
                     <Input name="email" required placeholder="Butcher.of@blaviken.com"></Input>
                     <label>Your username</label>
@@ -60,7 +61,7 @@ export default function signup({ actionData }: Route.ComponentProps){
                     <Input name="password" required type="password"></Input>
                     <Button type="submit"name="intent" value="create_account">Submit</Button>
                 </form>
-                  {actionData?.error ? (
+                  {actionData?.error ? ( /*Ici j'avais un gros bug qui disait que error n'était pas défini dans actionData et il a disparu quand j'ai ajouté un redirect ?????? */
                         <p className="text-red-500 text-sm">{actionData.error}</p>
                     ) : null}
 
