@@ -10,7 +10,7 @@ import {
 
 // UI
 import { Button } from "./components/ui/button";
-import { MessageCircleQuestionMark, PersonStanding, UserPlus } from "lucide-react";
+import { MessageCircleQuestionMark, PersonStanding, UserPlus, User } from "lucide-react";
 
 //IMG
 import logo from './assets/witcher-logo.png'
@@ -50,8 +50,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/about"><MessageCircleQuestionMark className="mr-1 h-4 w-4" /> About this project</NavLink></Button>
             <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/characters"><PersonStanding className="mr-1 h-4 w-4" /> Characters</NavLink></Button>
           </div>
-          <div> {/* Left buttons */}
+          <div> {/* Right buttons */}
               <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/signup"><UserPlus className="mr-1 h-4 w-4" /> Signup</NavLink></Button>
+              <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/signin"><User className="mr-1 h-4 w-4" /> Signin</NavLink></Button>
           </div>
           </nav>
           <main className="flex-1 flex flex-row overflow-y-scroll">
