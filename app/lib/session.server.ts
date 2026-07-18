@@ -1,6 +1,10 @@
 import { createCookieSessionStorage, redirect } from "react-router";
 
 
+/**
+* Data stored
+*************************************/
+
 type SessionData = {
   userId: number;
 };
@@ -17,6 +21,10 @@ let { getSession, commitSession, destroySession } = createCookieSessionStorage<S
   },
 });
 
+
+/**
+* Create session
+*************************************/
 
 export async function create_session(request : Request, userId: number, redirectTo: string){
     let session = await getSession(request.headers.get("Cookie"));

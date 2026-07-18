@@ -5,6 +5,10 @@ import  type { Route } from "./+types/signup";
 import { signin_user } from "~/models/user.server";
 import { create_session } from "~/lib/session.server";
 
+/**
+* Action
+*************************************/
+
 export async function action({ request }: Route.ActionArgs){
     const formData = await request.formData()
 
@@ -29,6 +33,10 @@ export async function action({ request }: Route.ActionArgs){
         }
     }
 }
+
+/**
+* Template
+*************************************/
 
 export default function signin({ actionData }: Route.ComponentProps){
     return(
