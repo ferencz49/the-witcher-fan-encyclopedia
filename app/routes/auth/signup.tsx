@@ -60,7 +60,7 @@ export default function signup({ actionData }: Route.ComponentProps){
                     <Input name="username" required type="text" placeholder="Gwynbleidd"></Input>
                     <label>Your password</label>
                     <Input name="password" required type="password"></Input>
-                    <Button type="submit"name="intent" value="create_account">Submit</Button>
+                    <Button type="submit" name="intent" value="create_account">Submit</Button>
                 </form>
                   {actionData?.error ? ( /*Ici j'avais un gros bug qui disait que error n'était pas défini dans actionData et il a disparu quand j'ai ajouté un redirect ?????? */
                         <p className="text-red-500 text-sm">{actionData.error}</p>

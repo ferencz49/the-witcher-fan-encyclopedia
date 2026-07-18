@@ -8,5 +8,6 @@ export default [
         route(":character_id", "./routes/characters/character.tsx")
     ]),
     route("/signup", "./routes/auth/signup.tsx"),
-    route("/signin", "./routes/auth/signin.tsx")
+    route("/signin", "./routes/auth/signin.tsx"),
+    route("/profile", "./routes/user/profile.tsx")
 ] satisfies RouteConfig;

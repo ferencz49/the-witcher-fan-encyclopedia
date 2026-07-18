@@ -1,5 +1,5 @@
 import { createCookieSessionStorage, redirect } from "react-router";
-
+import { get_user } from "~/models/user.server";
 
 /**
 * Data stored
@@ -38,3 +38,44 @@ export async function create_session(request : Request, userId: number, redirect
     });
 
 }
+
+/**
+* Delete session
+*************************************/
+
+
+export async function delete_session(request: Request, redirectTo: string){
+  const session = await getSession(request.headers.get("Cookie")) // ne pas oublier getSession est une fonction ASYNC
+
+  return redirect(redirectTo, {
+  headers: {
+    "Set-Cookie": await destroySession(session),
+  },
+});
+
+}
+
+
+/**
+* Get session user
+*************************************/
+
+export async function get_session_user(request: Request){
+  const session = await getSession(request.headers.get("Cookie"))
+  let userId = session.get("userId");
+
+  if(!userId){
+    return null
+  }
+
+  const user = await get_user(userId)
+
+  if(!user){
+    throw await delete_session(request, "/")
+  }
+
+  let  { password, ...userWithoutPassword  } = user
+
+  return userWithoutPassword
+}
+

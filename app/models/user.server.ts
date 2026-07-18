@@ -79,3 +79,21 @@ export async function signin_user(data: Record<string, FormDataEntryValue>){
     }
 
 }
+
+/**
+* Get user
+*************************************/
+
+export async function get_user(userId: number){
+    try {
+        return await prisma.user.findUnique({
+            where :{
+                id: userId
+            }
+        })
+    } catch (e) {
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+            throw e
+        }
+    }
+}
