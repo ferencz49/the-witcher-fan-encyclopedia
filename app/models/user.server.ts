@@ -1,6 +1,6 @@
 import { prisma } from "~/lib/prisma.server";
 import { Prisma } from "../../generated/prisma/client";
-import { assert, number, object, string, create } from 'superstruct'
+import { assert, number, object, string, create, size } from 'superstruct'
 import bcrypt from 'bcryptjs';
 import { compare } from "bcryptjs";
 
@@ -97,3 +97,95 @@ export async function get_user(userId: number){
         }
     }
 }
+
+/**
+* Change username
+*************************************/
+
+const usernameValidation = object({
+    username: size(string(), 1, 20),
+    userId: string() // est ce que c'est une bonne idée de prendre un chaine puis de la cast en nombre ?...
+})
+
+export async function change_username(data: Record<string, FormDataEntryValue>){
+    const usernameData = create(data, usernameValidation)
+    assert(usernameData, usernameValidation, 'Username size should range from 1 to  20 characters')
+
+    try{
+        return await prisma.user.update({
+            where:{
+                id: Number(usernameData.userId)
+            },
+            data:{
+                username : usernameData.username
+            }
+        })
+    } catch (e) {
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+            throw e
+        }
+    }
+}
+
+
+/**
+* Change email
+*************************************/
+
+const emailValidation = object({
+    email: size(string(), 1, 30),
+    userId: string()
+})
+
+export async function change_email(data: Record<string, FormDataEntryValue>){
+    const emailData = create(data, emailValidation)
+    assert(emailData, emailValidation, 'Email size should range from 1 to 30 characters')
+
+    try{
+        return await prisma.user.update({
+            where:{
+                id: Number(emailData.userId)
+            },
+            data:{
+                email: emailData.email
+            }
+        })
+    } catch (e) {
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+            throw e
+        }
+    }
+}
+
+
+/**
+* Change password
+*************************************/
+
+const passwordValidation = object({
+    password: string(),
+    userId: string()
+})
+
+
+export async function change_password(data: Record<string, FormDataEntryValue>){
+    const passwordData = create(data, passwordValidation)
+    assert(passwordData, passwordValidation, 'jsp')
+    const password = await bcrypt.hash(passwordData.password, 12)
+    try{
+        return await prisma.user.update({
+            where:{
+                id: Number(passwordData.userId)
+            },
+            data:{
+                password: password
+            }
+        }) 
+    } catch (e) {
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+            throw e
+        }
+    }
+}
+
+
