@@ -4,8 +4,11 @@ import { EditableText } from "~/components/editableText"
 import { Separator } from "~/components/ui/separator"
 import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
+import { toast } from "sonner"
+import { Toaster } from "~/components/ui/sonner"
 import { change_username, change_email, change_password } from "~/models/user.server"
 import { Form } from "react-router"
+import { useEffect } from "react"
 
 export async function loader({ request }: Route.ActionArgs){
     try{
@@ -23,7 +26,8 @@ export async function action({ request }: Route.ActionArgs){
 
     if(intent === "change_username"){
         try{
-            await change_username(data)
+            const u = await change_username(data)
+            return {user: u, error: null, intent}
         } catch(error){
             if (error instanceof Error) { // si on a bien capturé une erreur
                 return { error: error.message }; // on retourne (et pas throw) une réponse avec le message d'erreur
@@ -31,12 +35,12 @@ export async function action({ request }: Route.ActionArgs){
                 throw error; // sinon on laisse remonter l'erreur
             }
         }
-        return null
     }
 
     if(intent === "change_email") {
         try{
-            await change_email(data)
+             const u = await change_email(data)
+            return {user: u, error: null, intent}
         } catch(error){
             if (error instanceof Error) { // si on a bien capturé une erreur
                 return { error: error.message }; // on retourne (et pas throw) une réponse avec le message d'erreur
@@ -44,12 +48,13 @@ export async function action({ request }: Route.ActionArgs){
                 throw error; // sinon on laisse remonter l'erreur
             }
         }
-        return null
     }
 
     if(intent === "change_password"){
-            try{
-            await change_password(data)
+        try{
+            const u = await change_password(data)
+            //ici retirer le mdp avant de return
+            return {user: u, error: null, intent}
         } catch(error){
             if (error instanceof Error) { // si on a bien capturé une erreur
                 return { error: error.message }; // on retourne (et pas throw) une réponse avec le message d'erreur
@@ -57,13 +62,21 @@ export async function action({ request }: Route.ActionArgs){
                 throw error; // sinon on laisse remonter l'erreur
             }
         }
-        return null
     } 
 }
 
 
 export default function profile({ loaderData, actionData }: Route.ComponentProps){
     const user = loaderData.user
+    console.log(actionData)
+        useEffect(() => {
+        console.log("useeffect1")
+        if (actionData?.user) {
+            toast("Password updated.");
+        }
+    }, [actionData]);
+
+
     return(
         <div className="flex flex-col flex-1 items-center justify-center bg-sky-200">
             <h1 className="text-3xl p-5">Profile</h1>    
@@ -89,6 +102,7 @@ export default function profile({ loaderData, actionData }: Route.ComponentProps
                 </div>
                 : null
             } 
+            <Toaster></Toaster>
         </div>
     )
 }

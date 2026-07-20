@@ -163,7 +163,7 @@ export async function change_email(data: Record<string, FormDataEntryValue>){
 *************************************/
 
 const passwordValidation = object({
-    password: string(),
+    password: size(string(),1,50),
     userId: string()
 })
 
