@@ -40,7 +40,7 @@ model Character {
   profession String
   description String
   apparations Artwork[]
-  suggestions Suggestion[]
+  comments Comment[]
 }
 
 enum ArtworkType {
@@ -69,7 +69,7 @@ model User {
   username String @unique
   password String
   role Role @default(USER)
-  suggestions Suggestion[]
+  comments Comment[]
 }
 
 enum State {
@@ -78,10 +78,10 @@ enum State {
   REJECTED
 }
 
-model Suggestion {
+model Comment {
   id Int @id @default(autoincrement())
+  title String
   text String
-  state State @default(PENDING)
   character Character @relation(fields: [characterId], references: [id])
   characterId Int
   user User @relation(fields: [userId], references: [id])
