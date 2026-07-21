@@ -9,6 +9,9 @@ import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { get_session_user } from "~/lib/session.server";
 import { create_comment } from "~/models/comment.server";
+import { Toaster } from "~/components/ui/sonner";
+import { toast } from "sonner";
+import { useEffect } from "react";
 
 /**
 * Loader
@@ -45,7 +48,8 @@ export async function action({ request }: Route.ActionArgs ){
     console.log(data)
     if(intent === "create_comment"){
         try{
-            await create_comment(data, Number(characterId), Number(userId))
+            const comment = await create_comment(data, Number(characterId), Number(userId))
+            return { comment : comment, error: null}
         } catch (error){
             if (error instanceof Error) { // si on a bien capturé une erreur
                 return { error: error.message }; // on retourne (et pas throw) une réponse avec le message d'erreur
@@ -64,8 +68,16 @@ export async function action({ request }: Route.ActionArgs ){
 export default function character({ loaderData, actionData }: Route.ComponentProps){
     const character = loaderData.character
     const user = loaderData.user
+
+    useEffect(() => {
+        if (actionData?.comment) {
+            toast("Comment created.");
+        }
+    }, [actionData]);
+    
     return(
                 <div className="flex flex-col flex-1 pl-20 pr-20">
+                    <Toaster></Toaster>
                     <h1 className="text-3xl pt-4 pb-4">Name : { character.name }</h1>
                     <Separator/>
                     <h3 className="pt-4 pb-4">Nickname : { character.nickname }</h3>
