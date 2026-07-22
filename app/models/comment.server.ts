@@ -23,8 +23,22 @@ export async function create_comment(data: Record<string, FormDataEntryValue>, c
         })
         return comment
     } catch (e) {
-            if (e instanceof Prisma.PrismaClientKnownRequestError) {
-                throw e
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+            throw e
+        }
+    }
+}
+
+export async function get_comments(characterid: number){
+    try {
+        return await prisma.comment.findMany({
+            where:{
+                characterId: characterid
             }
+        })
+    } catch (e) {
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+            throw e
+        }
     }
 }

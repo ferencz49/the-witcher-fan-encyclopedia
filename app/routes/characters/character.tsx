@@ -8,10 +8,11 @@ import { useNavigate, Form } from "react-router";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { get_session_user } from "~/lib/session.server";
-import { create_comment } from "~/models/comment.server";
+import { create_comment, get_comments } from "~/models/comment.server";
 import { Toaster } from "~/components/ui/sonner";
 import { toast } from "sonner";
 import { useEffect } from "react";
+import { MessageSquare } from "lucide-react";
 
 /**
 * Loader
@@ -23,13 +24,14 @@ export async function loader({ params, request } : Route.LoaderArgs){
     if(!character){
         throw new Response("List not found", { status: 404 });
     }
+    const comments = await get_comments(character.id)
 
     const user = await get_session_user(request) 
     
     if(!user){
-        return { character : character, user: null}
+        return { character : character, comments: comments , user: null}
     }
-    return { character : character, user: user}
+    return { character : character, comments: comments , user: user}
 }
 
 export function ErrorBoundary(){
@@ -68,6 +70,7 @@ export async function action({ request }: Route.ActionArgs ){
 export default function character({ loaderData, actionData }: Route.ComponentProps){
     const character = loaderData.character
     const user = loaderData.user
+    const comments = loaderData.comments
 
     useEffect(() => {
         if (actionData?.comment) {
@@ -90,7 +93,7 @@ export default function character({ loaderData, actionData }: Route.ComponentPro
                     <Separator/>     
                     <h3 className="pt-4 pb-4">Description : { character.description }</h3>
                     <Separator/>
-                    <Form className="flex flex-col pt-20 pb-20" method="post">
+                    <Form className="flex flex-col pt-20 pb-10" method="post">
                         <h2 className="text-2xl">Write a comment</h2>
                         <Input type="hidden" name="characterId" value={Number(character.id)}></Input>
                         <Input type="hidden" name="userId" value={Number(user?.id)}></Input>
@@ -105,8 +108,22 @@ export default function character({ loaderData, actionData }: Route.ComponentPro
                     {actionData?.error ? (
                         <p className="text-red-500 text-sm">{actionData.error}</p>
                     ) : null}     
-                    <Separator/>
-                    <h2 className="text-2xl">Comments</h2>
+                    <h2 className="text-2xl flex flex-row justify-between">Comments<MessageSquare/></h2>
+                    <div>
+                    {
+                        comments ? 
+                        comments.map((comment) => (
+                            <div className="mt-5 mb-5 p-2 bg-gray-300 rounded-sm">
+                                <div className="flex flex-row">
+                                    <p className="font-semibold flex-1">{comment.title}</p>
+                                    <p>{comment.createdAt.toDateString()}</p>
+                                </div>
+                                <p className="text-gray-700">{comment.text}</p>
+                            </div>
+                        ))
+                        : <p>No comments for this character</p>
+                    }
+                    </div>
                 </div> 
     )
 }
