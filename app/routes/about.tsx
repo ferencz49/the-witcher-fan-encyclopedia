@@ -2,7 +2,7 @@
 
 export default function about(){
     return(
-        <div className="flex flex-col flex-1 items-start justify-center pl-100"> {/*justify-center */}
+        <div className="flex flex-col flex-1 items-start justify-center pl-10"> {/*justify-center */}
             <h1 className="text-4xl pb-5">About this project</h1>
 
             <section className="pl-0 pb-5">

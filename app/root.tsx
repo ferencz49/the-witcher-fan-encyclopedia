@@ -60,7 +60,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
           <div> {/* Right buttons */}
             {loaderData ?
+            <div>
+              <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/profile"><User className="mr-1 h-4 w-4" /> Profile</NavLink></Button>
               <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/signout"><UserMinus className="mr-1 h-4 w-4" /> Signout</NavLink></Button>
+            </div>
             :
               <div>
                 <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/signup"><UserPlus className="mr-1 h-4 w-4" /> Signup</NavLink></Button>
