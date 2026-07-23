@@ -146,6 +146,122 @@ async function main() {
       }
     })  
 
+    await prisma.character.create({
+      data:{
+        name: "Jaskier",
+        nickname:"",
+        profession: "",
+        description: ""
+      }
+    })  
+
+    await prisma.character.create({
+      data:{
+        name: "Zoltan Chivay",
+        nickname:"",
+        profession: "",
+        description: ""
+      }
+    })  
+
+      await prisma.character.create({
+      data:{
+        name: "Angoulême",
+        nickname:"",
+        profession: "",
+        description: ""
+      }
+    })
+
+    await prisma.character.create({
+      data:{
+        name: "Vilgefortz of Roggeveen",
+        nickname:"",
+        profession: "",
+        description: ""
+      }
+    })
+
+    await prisma.character.create({
+      data:{
+        name: "Renfri",
+        nickname:"",
+        profession: "",
+        description: ""
+      }
+    })
+
+  await prisma.character.create({
+    data:{
+      name: "Nimue verch Wledyr ap Gwyn",
+      nickname:"",
+      profession: "",
+      description: ""
+    }
+  })
+
+  await prisma.character.create({
+    data:{
+      name: "Stregobor",
+      nickname:"",
+      profession: "",
+      description: ""
+    }
+  })
+
+  await prisma.character.create({
+    data:{
+      name: "Foltest",
+      nickname:"",
+      profession: "",
+      description: ""
+    }
+  })
+
+  await prisma.character.create({
+    data:{
+      name: "Sigismund Dijkstra",
+      nickname:"",
+      profession: "",
+      description: ""
+    }
+  })
+
+  await prisma.character.create({
+    data:{
+      name: "Nenneke",
+      nickname:"",
+      profession: "",
+      description: ""
+    }
+  })
+
+  await prisma.character.create({
+    data:{
+      name: "Iola",
+      nickname:"",
+      profession: "",
+      description: ""
+    }
+  })
+
+  await prisma.character.create({
+    data:{
+      name: "Triss Merigold",
+      nickname:"",
+      profession: "",
+      description: ""
+    }
+  })
+
+  await prisma.character.create({
+    data:{
+      name: "Avallac'h",
+      nickname:"",
+      profession: "",
+      description: ""
+    }
+  })
 }
 
 main()
