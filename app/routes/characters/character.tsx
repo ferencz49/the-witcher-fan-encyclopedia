@@ -27,6 +27,7 @@ export async function loader({ params, request } : Route.LoaderArgs){
     const comments = await get_comments(character.id)
 
     const user = await get_session_user(request) 
+    console.log(comments)
     
     if(!user){
         return { character : character, comments: comments , user: null}
@@ -81,6 +82,7 @@ export default function character({ loaderData, actionData }: Route.ComponentPro
     return(
                 <div className="flex flex-col flex-1 pl-20 pr-20">
                     <Toaster></Toaster>
+                    {/* Informations about the character */}
                     <h1 className="text-3xl pt-4 pb-4">Name : { character.name }</h1>
                     <Separator/>
                     <h3 className="pt-4 pb-4">Nickname : { character.nickname }</h3>
@@ -93,6 +95,7 @@ export default function character({ loaderData, actionData }: Route.ComponentPro
                     <Separator/>     
                     <h3 className="pt-4 pb-4">Description : { character.description }</h3>
                     <Separator/>
+                    {/* Write a comment form */}
                     <Form className="flex flex-col pt-20 pb-10" method="post">
                         <h2 className="text-2xl">Write a comment</h2>
                         <Input type="hidden" name="characterId" value={Number(character.id)}></Input>
@@ -108,14 +111,16 @@ export default function character({ loaderData, actionData }: Route.ComponentPro
                     {actionData?.error ? (
                         <p className="text-red-500 text-sm">{actionData.error}</p>
                     ) : null}     
+                    {/* Comments for this character */}
                     <h2 className="text-2xl flex flex-row justify-between">Comments<MessageSquare/></h2>
                     <div>
                     {
-                        comments ? 
+                        comments && comments.length > 0 ? 
                         comments.map((comment) => (
                             <div className="mt-5 mb-5 p-2 bg-gray-300 rounded-sm">
                                 <div className="flex flex-row">
                                     <p className="font-semibold flex-1">{comment.title}</p>
+                                    <p className="pr-5">{comment.user.username}</p>
                                     <p>{comment.createdAt.toDateString()}</p>
                                 </div>
                                 <p className="text-gray-700">{comment.text}</p>

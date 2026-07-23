@@ -5,12 +5,13 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  NavLink
+  NavLink,
+  useRouteLoaderData
 } from "react-router";
 
 // UI
 import { Button } from "./components/ui/button";
-import { MessageCircleQuestionMark, PersonStanding, UserPlus, User } from "lucide-react";
+import { MessageCircleQuestionMark, PersonStanding, UserPlus, User, UserMinus } from "lucide-react";
 
 //IMG
 import logo from './assets/witcher-logo.png'
@@ -18,6 +19,8 @@ import logo from './assets/witcher-logo.png'
 
 import type { Route } from "./+types/root";
 import "./app.css";
+
+import { get_session_user } from "./lib/session.server";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -32,7 +35,12 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+export async function loader({ request }: Route.LoaderArgs){
+  return await get_session_user(request)
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const loaderData = useRouteLoaderData("root")
   return (
     <html lang="en">
       <head>
@@ -51,8 +59,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/characters"><PersonStanding className="mr-1 h-4 w-4" /> Characters</NavLink></Button>
           </div>
           <div> {/* Right buttons */}
-              <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/signup"><UserPlus className="mr-1 h-4 w-4" /> Signup</NavLink></Button>
-              <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/signin"><User className="mr-1 h-4 w-4" /> Signin</NavLink></Button>
+            {loaderData ?
+              <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/signout"><UserMinus className="mr-1 h-4 w-4" /> Signout</NavLink></Button>
+            :
+              <div>
+                <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/signup"><UserPlus className="mr-1 h-4 w-4" /> Signup</NavLink></Button>
+                <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/signin"><User className="mr-1 h-4 w-4" /> Signin</NavLink></Button>
+              </div>            
+            }
+              
           </div>
           </nav>
           <main className="flex-1 flex flex-row overflow-y-scroll">

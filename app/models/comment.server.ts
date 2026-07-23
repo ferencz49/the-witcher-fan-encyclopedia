@@ -34,6 +34,9 @@ export async function get_comments(characterid: number){
         return await prisma.comment.findMany({
             where:{
                 characterId: characterid
+            },
+            include:{
+                user: true
             }
         })
     } catch (e) {
