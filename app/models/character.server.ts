@@ -32,6 +32,9 @@ export async function get_character(characterId : number){
     return await prisma.character.findUnique({
         where: {
             id: characterId
+        },
+        include:{
+            likes:true
         }
     })
 }

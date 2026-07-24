@@ -12,7 +12,8 @@ import { create_comment, get_comments } from "~/models/comment.server";
 import { Toaster } from "~/components/ui/sonner";
 import { toast } from "sonner";
 import { useEffect } from "react";
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, Star } from "lucide-react";
+import { add_like_to_character, has_user_liked_this_character, remove_like_from_character } from "~/models/like.server";
 
 /**
 * Loader
@@ -27,12 +28,19 @@ export async function loader({ params, request } : Route.LoaderArgs){
     const comments = await get_comments(character.id)
 
     const user = await get_session_user(request) 
-    console.log(comments)
+    // console.log(comments)
     
     if(!user){
-        return { character : character, comments: comments , user: null}
+        return { character : character, comments: comments , user: null, hasUserLiked: null}
     }
-    return { character : character, comments: comments , user: user}
+
+    const like = await has_user_liked_this_character(character.id, user.id)
+
+    if(!like){
+        return { character : character, comments: comments , user: user, hasUserLiked: false}
+    }
+
+    return { character : character, comments: comments , user: user, hasUserLiked: true}
 }
 
 export function ErrorBoundary(){
@@ -45,6 +53,10 @@ let navigate = useNavigate();
   );
 }
 
+/**
+* Action
+************************************/
+
 export async function action({ request }: Route.ActionArgs ){
     const formData = await request.formData()
     const { intent, characterId, userId,...data} = Object.fromEntries(formData)
@@ -52,7 +64,7 @@ export async function action({ request }: Route.ActionArgs ){
     if(intent === "create_comment"){
         try{
             const comment = await create_comment(data, Number(characterId), Number(userId))
-            return { comment : comment, error: null}
+            return { comment : comment, like: null ,error: null}
         } catch (error){
             if (error instanceof Error) { // si on a bien capturé une erreur
                 return { error: error.message }; // on retourne (et pas throw) une réponse avec le message d'erreur
@@ -61,6 +73,32 @@ export async function action({ request }: Route.ActionArgs ){
             }
         }
     } 
+
+    if(intent === "add_like"){
+        try{
+            const like = await add_like_to_character(Number(characterId), Number(userId))
+            return { comment : null, like: like, error: null}
+        } catch (error){
+            if (error instanceof Error) { // si on a bien capturé une erreur
+                return { error: error.message }; // on retourne (et pas throw) une réponse avec le message d'erreur
+            } else {
+                throw error; // sinon on laisse remonter l'erreur
+            }
+        }
+    }
+
+    if(intent === "remove_like"){
+        try{
+            const like = await remove_like_from_character(Number(characterId), Number(userId))
+            return { comment : null, like: like, error: null}
+        } catch (error){
+            if (error instanceof Error) { // si on a bien capturé une erreur
+                return { error: error.message }; // on retourne (et pas throw) une réponse avec le message d'erreur
+            } else {
+                throw error; // sinon on laisse remonter l'erreur
+            }
+        }
+    }
 }
 
 
@@ -83,7 +121,27 @@ export default function character({ loaderData, actionData }: Route.ComponentPro
                 <div className="flex flex-col flex-1 pl-20 pr-20">
                     <Toaster></Toaster>
                     {/* Informations about the character */}
-                    <h1 className="text-3xl pt-4 pb-4">Name : { character.name }</h1>
+                    <div className="flex flex-row">
+                        <h1 className="flex-1 text-3xl pt-4 pb-4">Name : { character.name }</h1>
+                        <h3 className=" text-3xl pt-4">{character.likes.length}</h3>
+                        <Form method="post">
+                            {
+                                loaderData.hasUserLiked ? 
+                                <template>
+                                    <Input type="hidden" name="characterId" value={Number(character.id)}></Input>
+                                    <Input type="hidden" name="userId" value={Number(user?.id)}></Input>
+                                    <Button className="mt-4" type="submit" name="intent" value="remove_like"><Star/></Button>
+                                </template> 
+                                :
+                                <template>
+                                    <Input type="hidden" name="characterId" value={Number(character.id)}></Input>
+                                    <Input type="hidden" name="userId" value={Number(user?.id)}></Input>
+                                    <Button className="mt-4" type="submit" name="intent" value="add_like"><Star/></Button> 
+                                </template>
+                            }
+
+                        </Form>
+                    </div>
                     <Separator/>
                     <h3 className="pt-4 pb-4">Nickname : { character.nickname }</h3>
                     <Separator/>
@@ -120,7 +178,7 @@ export default function character({ loaderData, actionData }: Route.ComponentPro
                             <div className="mt-5 mb-5 p-2 bg-gray-300 rounded-sm">
                                 <div className="flex flex-row">
                                     <p className="font-semibold flex-1">{comment.title}</p>
-                                    <p className="pr-5">{comment.user.username}</p>
+                                    <p className="pr-5">{comment.user!.username}</p> {/* ici réflechir à comment faire pour retirer le ! */}
                                     <p>{comment.createdAt.toDateString()}</p>
                                 </div>
                                 <p className="text-gray-700">{comment.text}</p>
