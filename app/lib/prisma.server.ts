@@ -1,11 +1,9 @@
 import { PrismaClient } from "../../generated/prisma/client";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
+import { PrismaNeon } from '@prisma/adapter-neon'
 
-const adapter = new PrismaLibSql({
-  url: process.env.DATABASE_URL!,
-});
-
-
+const adapter = new PrismaNeon({
+  connectionString: process.env.DATABASE_URL!,
+})
 
 let prisma: PrismaClient;
 
@@ -14,10 +12,10 @@ declare global {
 }
 
 if (process.env.NODE_ENV === "production") {
-  prisma = new PrismaClient({adapter});
+  prisma = new PrismaClient({ adapter});
 } else {
   if (!global.prisma) {
-    global.prisma = new PrismaClient({adapter});
+    global.prisma = new PrismaClient({ adapter });
   }
   prisma = global.prisma;
   prisma.$connect();

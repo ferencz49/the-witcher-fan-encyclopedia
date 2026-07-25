@@ -1,9 +1,11 @@
 import { PrismaClient } from "../generated/prisma/client";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
+import { PrismaNeon } from '@prisma/adapter-neon'
 
-const adapter = new PrismaLibSql({
-  url: process.env.DATABASE_URL || "",
-});
+
+const adapter = new PrismaNeon({
+  connectionString: process.env.DATABASE_URL!,
+})
+
 
 const prisma = new PrismaClient({ adapter });
 
