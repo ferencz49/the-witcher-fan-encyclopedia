@@ -32,7 +32,7 @@ export default function Home() {
 
     <div className="flex flex-col flex-1 items-center justify-center">
       <h1 className="flex flex-row text-4xl">Work in progress<TriangleAlert/></h1>
-      <h1 className="text-2xl">This website just go deployed, the development is in a vert erly stage.</h1>
+      <h1 className="text-2xl">This website just go deployed, the development is in a very early stage.</h1>
     </div>
   );
 }
