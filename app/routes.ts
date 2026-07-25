@@ -7,6 +7,7 @@ export default [
         index("./routes/characters/character.index.tsx"),
         route(":character_id", "./routes/characters/character.tsx")
     ]),
+    route("/most_liked_characters", "./routes/characters/most_liked.tsx"),
     route("/signup", "./routes/auth/signup.tsx"),
     route("/signin", "./routes/auth/signin.tsx"),
     route("/signout", "./routes/auth/signout.tsx"),

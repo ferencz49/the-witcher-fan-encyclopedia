@@ -12,7 +12,7 @@ import { create_comment, get_comments } from "~/models/comment.server";
 import { Toaster } from "~/components/ui/sonner";
 import { toast } from "sonner";
 import { useEffect } from "react";
-import { MessageSquare, Star } from "lucide-react";
+import { MessageSquare, Star, StarCheck } from "lucide-react";
 import { add_like_to_character, has_user_liked_this_character, remove_like_from_character } from "~/models/like.server";
 
 /**
@@ -127,17 +127,17 @@ export default function character({ loaderData, actionData }: Route.ComponentPro
                         <Form method="post">
                             {
                                 loaderData.hasUserLiked ? 
-                                <template>
+                                <div>
                                     <Input type="hidden" name="characterId" value={Number(character.id)}></Input>
                                     <Input type="hidden" name="userId" value={Number(user?.id)}></Input>
-                                    <Button className="mt-4" type="submit" name="intent" value="remove_like"><Star/></Button>
-                                </template> 
+                                    <Button className="mt-4" type="submit" name="intent" value="remove_like"><StarCheck/></Button>
+                                </div> 
                                 :
-                                <template>
+                                <div>
                                     <Input type="hidden" name="characterId" value={Number(character.id)}></Input>
                                     <Input type="hidden" name="userId" value={Number(user?.id)}></Input>
                                     <Button className="mt-4" type="submit" name="intent" value="add_like"><Star/></Button> 
-                                </template>
+                                </div>
                             }
 
                         </Form>

@@ -12,7 +12,7 @@ import { TriangleAlert } from "lucide-react";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
+    { title: "Witcher fan encyclopedia" },
     { name: "description", content: "Welcome to React Router!" },
   ];
 }

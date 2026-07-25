@@ -38,3 +38,20 @@ export async function get_character(characterId : number){
         }
     })
 }
+
+/**
+* Order characters by likes (found how to do it here: https://www.prisma.io/docs/orm/reference/prisma-client-reference#sort-user-by-the-posts-count)
+***********************************************/
+
+export async function get_characters_by_most_liked(){
+    return await prisma.character.findMany({
+        orderBy: {
+            likes:{
+                _count: "desc"
+            }
+        },
+        include:{
+            likes: true
+        }
+    })
+}
