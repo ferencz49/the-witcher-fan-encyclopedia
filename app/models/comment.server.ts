@@ -1,16 +1,16 @@
 import { prisma } from "~/lib/prisma.server";
-import { object, string, create, assert, number } from "superstruct";
+import { object, string, create, assert, number, size } from "superstruct";
 import { Prisma } from "../../generated/prisma/client";
 
 const commentCreationValidation = object({
-    title: string(),
-    text: string(),
+    title: size(string(),1,50),
+    text: size(string(),1,250),
 
 }) 
 
 export async function create_comment(data: Record<string, FormDataEntryValue>, characterId: number, userId: number){
     const commentCreationData = create(data, commentCreationValidation)
-    assert(commentCreationData, commentCreationValidation, 'Data is not valid') 
+    assert(commentCreationData, commentCreationValidation, 'Data is not valid, Maximum title size: 50 characters, Maximum text size: 250 characters') 
 
     try{
         const comment = await prisma.comment.create({
