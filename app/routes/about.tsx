@@ -34,6 +34,8 @@ export default function about(){
         //         </p>
         //     </section>
         // </div>
-        <h1 className="flex flex-row text-4xl">Coming soon</h1>
+        <div className="flex flex-1 bg-black">
+            <h1 className="flex flex-row text-4xl text-gray-300">Coming soon</h1>
+        </div>
     )
 }

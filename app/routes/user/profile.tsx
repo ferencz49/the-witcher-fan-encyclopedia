@@ -78,8 +78,8 @@ export default function profile({ loaderData, actionData }: Route.ComponentProps
 
 
     return(
-        <div className="flex flex-col flex-1 items-center justify-center bg-sky-200">
-            <h1 className="text-3xl p-5">Profile</h1>    
+        <div className="flex flex-col flex-1 items-center justify-center bg-black">
+            <h1 className="text-3xl p-5 text-white">Profile</h1>    
             { user ?
                 <div className="p-5 bg-stone-100 rounded-lg">
                     <label>Role : {user.role}</label>

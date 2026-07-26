@@ -51,7 +51,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <div className="h-screen flex flex-col">
-          <nav className="flex flex-row bg-slate-600 text-white p-4 space-x-2">
+          <nav className="flex flex-row bg-emerald-950 text-white p-4 space-x-2">
           { /* liens de navigation */ }
           <div className="flex-1 mr-0"> {/* Left buttons */}
             <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to=""><img src={logo} className="w-7" alt="" /></NavLink></Button>
@@ -77,7 +77,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <main className="flex-1 flex flex-row overflow-y-scroll">
             {children}
           </main>
-          <footer className="bg-slate-500 text-white p-4 text-center">
+          <footer className="bg-emerald-950 text-white p-4 text-center">
             Made with love by a fan - 2026
           </footer>
         </div>

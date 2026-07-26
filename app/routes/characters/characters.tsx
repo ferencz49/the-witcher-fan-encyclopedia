@@ -61,9 +61,9 @@ export default function characters({ loaderData, actionData } : Route.ComponentP
     const { characters } = actionData ? actionData : loaderData
     return(
         <>
-            <div className="w-1/4 border-r-2 p-2 space-y-2 max-h-full overflow-y-auto">
+            <div className="w-1/4 border-r-2 p-2 space-y-2 max-h-full overflow-y-auto bg-black">
                 <div className="flex flex-row">
-                    <h1 className="text-2xl flex-1">Characters</h1>
+                    <h1 className="text-2xl text-gray-200 flex-1 font-RomanAntique">Characters</h1>
                     <Form method="post"><Button type="submit" name="intent" value="get_characters_asc"><ArrowDownAZ/></Button></Form>
                     <Form method="post"><Button type="submit" name="intent" value="get_characters_desc"><ArrowUpZA/></Button></Form>   
                 </div>
@@ -72,7 +72,7 @@ export default function characters({ loaderData, actionData } : Route.ComponentP
                     <ul>
                     {
                     characters ?characters.map((character) => ( 
-                        <Button /*asChild*/ variant="link" size="sm" className="w-full justify-start hover:bg-slate-200">
+                        <Button /*asChild*/ variant="link" size="sm" className="w-full justify-center hover:border-gray-300 text-gray-300 font-RomanAntique">
                             <NavLinkWithQuery children={character.name} to={"/characters/"+character.id}></NavLinkWithQuery>
                         </Button>
 

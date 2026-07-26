@@ -28,15 +28,15 @@ export async function loader(){
 export default function most_liked_characters({ loaderData }: Route.ComponentProps){
     const characters = loaderData.characters
     return(
-        <div className="flex flex-col flex-1 items-center justify-center bg-sky-200">
+        <div className="flex flex-col flex-1 items-center justify-center-safe overflow-y-auto bg-black">
             <h1 className="">Most liked characters</h1>
             <ul className="p-5 bg-stone-100 rounded-lg">
             {
                 characters.map((character, index) =>(
                     <li className="flex flex-row justify-between">
-                        <p>{index + 1 + "."}</p>
-                            <NavLinkWithQuery className="pl-2 flex-1 hover hover:bg-slate-200" to={"/characters/" + character.id}>{character.name + " "}</NavLinkWithQuery>
-                        <p className="pl-2">{character.likes.length}</p>
+                        <p className="font-RomanAntique">{index + 1 + "."}</p>
+                            <NavLinkWithQuery className="pl-2 flex-1 hover hover:bg-slate-200 font-RomanAntique" to={"/characters/" + character.id}>{character.name + " "}</NavLinkWithQuery>
+                        <p className="pl-2 font-RomanAntique    ">{character.likes.length}</p>
                         <Star/>
                     </li>
                 ))

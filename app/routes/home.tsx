@@ -30,9 +30,10 @@ export default function Home() {
     //   <img src={logo} className="w-40"></img>    
     // </div>
 
-    <div className="flex flex-col flex-1 items-center justify-center">
-      <h1 className="flex flex-row text-4xl">Work in progress<TriangleAlert/></h1>
-      <h1 className="text-2xl">This website just go deployed, the development is in a very early stage.</h1>
+    <div className="flex flex-col flex-1 items-center justify-center bg-black">
+      <h1 className="flex text-4xl font-Dragon text-gray-300">ABCDEFGH</h1>
+      <h1 className="flex pt-5 text-4xl font-RomanAntique text-gray-300">Witcher Fan Enyclopedia</h1>
+      <h1 className="text-2xl text-gray-300">This website just go deployed, the development is in a very early stage.</h1>
     </div>
   );
 }

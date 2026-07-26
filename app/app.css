@@ -1,3 +1,14 @@
+@font-face {
+  font-family: RomanAntique;
+  src: url('./assets/fonts/RomanAntique.ttf');
+}
+
+@font-face {
+  font-family: Dragon;
+  src: url('./assets/fonts/The\ Dragon\ Ding\ ST.ttf');
+}
+
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -7,6 +18,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  --font-RomanAntique: RomanAntique;
+  --font-Dragon: Dragon;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }

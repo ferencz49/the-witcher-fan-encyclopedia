@@ -40,8 +40,8 @@ export async function action({ request }: Route.ActionArgs){
 
 export default function signin({ actionData }: Route.ComponentProps){
     return(
-        <div className="flex flex-col flex-1 items-center justify-center bg-sky-200">
-            <h1 className="text-3xl p-5">Signin</h1>
+        <div className="flex flex-col flex-1 items-center justify-center bg-black">
+            <h1 className="text-3xl p-5 text-gray-300">Signin</h1>
             <Form className="p-5 bg-stone-100 rounded-lg" method="post">
                 <label>Your email</label>
                 <Input name="email"></Input>
@@ -52,7 +52,7 @@ export default function signin({ actionData }: Route.ComponentProps){
             {actionData?.error ? ( /*Ici j'avais un gros bug qui disait que error n'était pas défini dans actionData et il a disparu quand j'ai ajouté un redirect ?????? */
                 <p className="text-red-500 text-sm">{actionData.error}</p>
             ) : null}
-            <p className="p-5">Don't have an account? <a href="/signup"><Button variant="ghost">Click here</Button></a></p>
+            <p className="p-5 text-gray-300">Don't have an account? <a href="/signup"><Button variant="ghost">Click here</Button></a></p>
         </div>
     )
 }
