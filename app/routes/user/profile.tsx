@@ -1,14 +1,31 @@
+/**
+* Imports
+*************************************/
+
+// React
+import { useEffect } from "react"
+import { Form } from "react-router"
+
+// Route
 import type { Route } from "./+types/profile"
+
+// Models
+import { change_username, change_email, change_password } from "~/models/user.server"
+
+// Libs
 import { get_session_user } from "~/lib/session.server"
+
+// Ui
 import { EditableText } from "~/components/editableText"
 import { Separator } from "~/components/ui/separator"
 import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
 import { toast } from "sonner"
 import { Toaster } from "~/components/ui/sonner"
-import { change_username, change_email, change_password } from "~/models/user.server"
-import { Form } from "react-router"
-import { useEffect } from "react"
+
+/**
+* Loader
+*************************************/
 
 export async function loader({ request }: Route.ActionArgs){
     try{
@@ -17,6 +34,10 @@ export async function loader({ request }: Route.ActionArgs){
         throw error
     }
 }
+
+/**
+* Action
+*************************************/
 
 export async function action({ request }: Route.ActionArgs){
     const formData = await request.formData()
@@ -65,6 +86,10 @@ export async function action({ request }: Route.ActionArgs){
     } 
 }
 
+
+/**
+* Template
+*************************************/
 
 export default function profile({ loaderData, actionData }: Route.ComponentProps){
     const user = loaderData.user

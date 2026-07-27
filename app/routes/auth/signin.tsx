@@ -1,9 +1,22 @@
-import { Form, redirect } from "react-router";
+/**
+* Imports
+*************************************/
+
+// React 
+import { Form } from "react-router";
+
+// Route
+import  type { Route } from "./+types/signup";
+
+// Models
+import { signin_user } from "~/models/user.server";
+
+// Libs
+import { create_session } from "~/lib/session.server";
+
+// Ui
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
-import  type { Route } from "./+types/signup";
-import { signin_user } from "~/models/user.server";
-import { create_session } from "~/lib/session.server";
 
 /**
 * Action

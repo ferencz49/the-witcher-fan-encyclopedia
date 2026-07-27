@@ -1,8 +1,14 @@
 /**
 * Imports
 ************************************/
-import { get_characters_by_most_liked } from "~/models/character.server"
+
+// Route
 import type { Route } from "./+types/most_liked";
+
+// Models
+import { get_characters_by_most_liked } from "~/models/character.server"
+
+//Ui
 import { Star } from "lucide-react";
 import { NavLinkWithQuery } from "~/components/linkWithQuery";
 

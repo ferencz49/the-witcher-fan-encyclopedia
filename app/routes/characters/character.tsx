@@ -1,19 +1,29 @@
 /**
 * Imports
 ************************************/
-import type { Route } from "../characters/+types/character";
-import { get_character } from "~/models/character.server";
-import { Separator } from "~/components/ui/separator";
+
+// React
+import { useEffect } from "react";
 import { useNavigate, Form } from "react-router";
+
+// Route
+import type { Route } from "../characters/+types/character";
+
+// Models
+import { get_character } from "~/models/character.server";
+import { create_comment, get_comments } from "~/models/comment.server";
+import { add_like_to_character, has_user_liked_this_character, remove_like_from_character } from "~/models/like.server";
+
+// Lib
+import { get_session_user } from "~/lib/session.server";
+
+// Ui
+import { Separator } from "~/components/ui/separator";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
-import { get_session_user } from "~/lib/session.server";
-import { create_comment, get_comments } from "~/models/comment.server";
 import { Toaster } from "~/components/ui/sonner";
 import { toast } from "sonner";
-import { useEffect } from "react";
 import { MessageSquare, Star, StarCheck } from "lucide-react";
-import { add_like_to_character, has_user_liked_this_character, remove_like_from_character } from "~/models/like.server";
 
 /**
 * Loader
@@ -42,6 +52,10 @@ export async function loader({ params, request } : Route.LoaderArgs){
 
     return { character : character, comments: comments , user: user, hasUserLiked: true}
 }
+
+/**
+* ErrorBoundary
+************************************/
 
 export function ErrorBoundary(){
 let navigate = useNavigate();

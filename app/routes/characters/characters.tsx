@@ -1,16 +1,21 @@
 /**
 * Imports
 ************************************/
-import { Outlet } from "react-router"
 
+// React
+import { Form, Outlet } from "react-router"
+
+// Route
 import type { Route } from "./+types/characters"
+
+// Models
 import { get_characters_asc, get_characters_desc } from "~/models/character.server"
 
+// Ui
 import { Button } from "~/components/ui/button"
 import { NavLinkWithQuery } from "~/components/linkWithQuery"
 import { Separator } from "~/components/ui/separator"
 import { ArrowDownAZ, ArrowUpZA } from "lucide-react"
-import { Form } from "react-router"
 
 /**
 * Loader

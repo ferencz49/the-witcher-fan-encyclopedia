@@ -1,8 +1,19 @@
+/**
+* Imports
+*************************************/
+
+// React
+import { redirect, useNavigate } from "react-router"
+
+// Route
+import type { Route } from "./+types/signup"
+
+// Models
+import { create_account } from "~/models/user.server"
+
+// Ui
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
-import type { Route } from "./+types/signup"
-import { create_account } from "~/models/user.server"
-import { redirect, useNavigate } from "react-router"
 
 
 /**
@@ -28,7 +39,6 @@ export async function action({ request }: Route.ActionArgs){
     }
 }
 
-
 /**
 * ErrorBoundary
 *************************************/
@@ -42,7 +52,6 @@ let navigate = useNavigate();
     </div>
   );
 }
-
 
 /**
 * Template

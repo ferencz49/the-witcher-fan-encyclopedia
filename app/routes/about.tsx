@@ -1,4 +1,6 @@
-
+/**
+* Template
+*************************************/
 
 export default function about(){
     return(
