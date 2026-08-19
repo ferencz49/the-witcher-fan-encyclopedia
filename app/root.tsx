@@ -11,7 +11,7 @@ import {
 
 // UI
 import { Button } from "./components/ui/button";
-import { MessageCircleQuestionMark, PersonStanding, UserPlus, User, UserMinus, Star } from "lucide-react";
+import { MessageCircleQuestionMark, PersonStanding, UserPlus, User, UserMinus, Star, Plus } from "lucide-react";
 
 //IMG
 import logo from './assets/witcher-logo.png'
@@ -58,6 +58,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/about"><MessageCircleQuestionMark className="mr-1 h-4 w-4" /> About this project</NavLink></Button>
             <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/characters"><PersonStanding className="mr-1 h-4 w-4" /> Characters</NavLink></Button>
             <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/most_liked_characters"><Star className="mr-1 h-4 w-4" /> Most liked characters</NavLink></Button>
+            <Button /*asChild*/ variant="link" className="text-secondary"><NavLink to="/submit_new_character"><Plus className="mr-1 h-4 w-4" /> Submit a new character</NavLink></Button>
           </div>
           <div> {/* Right buttons */}
             {loaderData ?

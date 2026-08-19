@@ -8,6 +8,7 @@ export default [
         route(":character_id", "./routes/characters/character.tsx")
     ]),
     route("/most_liked_characters", "./routes/characters/most_liked.tsx"),
+    route("/submit_new_character", "./routes/characters/submit_new_character.tsx"),
     route("/signup", "./routes/auth/signup.tsx"),
     route("/signin", "./routes/auth/signin.tsx"),
     route("/signout", "./routes/auth/signout.tsx"),
