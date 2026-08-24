@@ -67,6 +67,16 @@ model Character {
   comments Comment[]
 }
 
+model SubmittedCharacter {
+  id Int @id @default(autoincrement())
+  name String @unique
+  nickname String
+  race Race @default(UNKNOWN)
+  gender Gender @default(UNKNOWN)
+  profession String
+  description String
+}
+
 model Like {
   character Character @relation(fields: [characterId], references: [id])
   characterId Int
