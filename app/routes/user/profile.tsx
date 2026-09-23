@@ -24,6 +24,16 @@ import { toast } from "sonner"
 import { Toaster } from "~/components/ui/sonner"
 
 /**
+* Meta
+*************************************/
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Profile" }
+  ]
+}
+
+/**
 * Loader
 *************************************/
 

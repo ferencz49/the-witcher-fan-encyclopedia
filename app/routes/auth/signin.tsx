@@ -19,6 +19,16 @@ import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 
 /**
+* Meta
+*************************************/
+
+export function meta({}: Route.MetaArgs) {
+    return [
+        { title: "Signin" }
+    ]
+}
+
+/**
 * Action
 *************************************/
 

@@ -18,6 +18,16 @@ import { Separator } from "~/components/ui/separator"
 import { ArrowDownAZ, ArrowUpZA } from "lucide-react"
 
 /**
+* Meta
+*************************************/
+
+export function meta({}: Route.MetaArgs) {
+    return [
+        { title: "Characters" }
+    ]
+}
+
+/**
 * Loader
 ************************************/
 
