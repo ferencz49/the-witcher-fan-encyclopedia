@@ -26,6 +26,17 @@ import { toast } from "sonner";
 import { MessageSquare, Star, StarCheck } from "lucide-react";
 
 /**
+* Meta
+*************************************/
+
+export function meta({loaderData}: Route.MetaArgs) {
+    const character_name = loaderData?.character ? loaderData.character.name : "Character not found";
+    return [
+        { title: character_name }
+    ]
+}
+
+/**
 * Loader
 ************************************/
 

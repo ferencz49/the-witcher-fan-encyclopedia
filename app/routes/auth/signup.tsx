@@ -15,6 +15,15 @@ import { create_account } from "~/models/user.server"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
 
+/**
+* Meta
+*************************************/
+
+export function meta({}: Route.MetaArgs) {
+    return [
+        { title: "Signup" }
+    ]
+}
 
 /**
 * Action

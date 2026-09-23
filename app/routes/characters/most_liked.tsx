@@ -13,6 +13,16 @@ import { Star } from "lucide-react";
 import { NavLinkWithQuery } from "~/components/linkWithQuery";
 
 /**
+* Meta
+*************************************/
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Most liked characters" }
+  ]
+}
+
+/**
 * Loader
 ************************************/
 

@@ -1,3 +1,15 @@
+import type { Route } from "./+types/about"
+
+/**
+* Meta
+*************************************/
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "About" }
+  ]
+}
+
 /**
 * Template
 *************************************/
